@@ -6,7 +6,7 @@ from classifier.apps import ClassifierConfig
 import numpy as np
 
 
-# Create your views here.
+
 def home(request):
     template = loader.get_template("classifier/home.html")
     form = IrisFeatureForm()
