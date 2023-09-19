@@ -41,7 +41,7 @@ def predict(request):
             # [[1, 2, 3, 4]]
             prediction = ClassifierConfig.model.predict(features.reshape(1, -1))[0]
             prediction = targets[prediction]
-
+            
             prediction_probas = ClassifierConfig.calibrated_clf.predict_proba(features.reshape([1, -1]))[0]
             prediction_probas = [f"{prob*100:.2f}%" for prob in prediction_probas]
             

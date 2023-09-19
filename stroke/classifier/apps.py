@@ -9,7 +9,10 @@ class ClassifierConfig(AppConfig):
     name = 'classifier'
 
     model = joblib.load(os.path.join(settings.BASE_DIR, 
-                                     "models/iris_clf.joblib"))
+                                     "models/stroke_clf.joblib"))
     
     calibrated_clf = joblib.load(os.path.join(settings.BASE_DIR,
-                                              "models/iris_calibrated_clf.joblib"))
+                                              "models/stroke_calibrated_clf.joblib"))
+    
+    scaler = joblib.load(os.path.join(settings.BASE_DIR, "models/scaler.joblib"))
+    encoder = joblib.load(os.path.join(settings.BASE_DIR, "models/encoder.joblib"))

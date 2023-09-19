@@ -5,17 +5,25 @@ class IrisFeatureForm(forms.ModelForm):
     class Meta:
         model = IrisFeature
         fields = ('sepal_length', 'sepal_width', 'petal_length', 'petal_width')
+        GENDER_CHOICES = (('Male','Male'), ('Female', 'Female'))
+
+        HYPERTENSION_CHOICES = (('Yes', 1), ('No', 0)) 
 
         labels = {
-            'sepal_length': 'Sepal Length (cm)',
-            'sepal_width': 'Sepal Width (cm)',
-            'petal_length': 'Petal Length (cm)',
-            'petal_width': 'Petal Width (cm)'
+            'age': '',
+            'gender': '',
+            'hypertension': '',
+            'heart_disease': '',     
+            'avg_glucose_level': '',
+            'married': 'Married (Yes or No)',
+            'bmi': ''
         }
 
         widgets = {
-            'sepal_length': forms.NumberInput(attrs={'class': 'form-control', 'id': 'sepal_length'}),
-            'sepal_width': forms.NumberInput(attrs={'class': 'form-control', 'id': 'sepal_width'}),
+            'age': forms.NumberInput(attrs={'class': 'form-control', 'id': 'age'}),
+            'gender': forms.Select(choices=GENDER_CHOICES),
+            'hypertension': forms.Select(choices=HYPERTENSION_CHOICES),
+            forms.NumberInput(attrs={'class': 'form-control', 'id': 'sepal_width'}),
             'petal_length': forms.NumberInput(attrs={'class': 'form-control', 'id': 'petal_length'}),
             'petal_width': forms.NumberInput(attrs={'class': 'form-control', 'id': 'petal_width'})
         }
