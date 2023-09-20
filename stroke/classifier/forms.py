@@ -1,29 +1,33 @@
-from classifier.models import IrisFeature
+from classifier.models import StrokeFeature
 from django import forms
 
-class IrisFeatureForm(forms.ModelForm):
+class StrokeFeatureForm(forms.ModelForm):
     class Meta:
-        model = IrisFeature
-        fields = ('sepal_length', 'sepal_width', 'petal_length', 'petal_width')
-        GENDER_CHOICES = (('Male','Male'), ('Female', 'Female'))
+        fields = ('gender', 'age', 'hypertension', 'heart_disease','ever_married', 'work_type', 'residence_type','avg_glucose_level','bmi', 'smoking_status')
 
-        HYPERTENSION_CHOICES = (('Yes', 1), ('No', 0)) 
-
+        model = StrokeFeature
         labels = {
-            'age': '',
-            'gender': '',
-            'hypertension': '',
-            'heart_disease': '',     
-            'avg_glucose_level': '',
-            'married': 'Married (Yes or No)',
-            'bmi': ''
+            'age': 'Age', 
+            'gender': 'Gender (Male of Female)', 
+            'hypertension': 'Hypertension' , 
+            'heart_disease': 'Heart Disease',
+            'ever_married':  'Married',
+            'work_type':  'Work Type',
+            'residence_type':  'Residence Type',
+            'avg_glucose_level': 'Glucose Level (mmol/L)',
+            'bmi': 'BMI',
+            'smoking_status': 'Smoking Status' 
         }
 
         widgets = {
             'age': forms.NumberInput(attrs={'class': 'form-control', 'id': 'age'}),
-            'gender': forms.Select(choices=GENDER_CHOICES),
-            'hypertension': forms.Select(choices=HYPERTENSION_CHOICES),
-            forms.NumberInput(attrs={'class': 'form-control', 'id': 'sepal_width'}),
-            'petal_length': forms.NumberInput(attrs={'class': 'form-control', 'id': 'petal_length'}),
-            'petal_width': forms.NumberInput(attrs={'class': 'form-control', 'id': 'petal_width'})
+            'gender': forms.Select(attrs={'class': 'form-control', 'id': 'gender'}),
+            'hypertension': forms.Select(attrs={'class': 'form-control', 'id': 'age'}),
+            'heart_disease': forms.Select(attrs={'class': 'form-control', 'id': 'heart_disease'}),
+            'ever_married': forms.Select(attrs={'class': 'form-control', 'id': 'ever_married'}),
+            'work_type':  forms.Select(attrs={'class': 'form-control', 'id': 'gender'}),
+            'residence_type': forms.Select(attrs={'class': 'form-control', 'id':'residence_type'}) ,
+            'avg_glucose_level':  forms.NumberInput(attrs={'class': 'form-control', 'id': 'avg_glucose_level'}),
+            'bmi': forms.NumberInput(attrs={'class': 'form-control', 'id': 'bmi'}),
+            'smoking_status': forms.Select(attrs={'class':'form-control', 'id':'smoking_status'})
         }

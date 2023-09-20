@@ -151,8 +151,18 @@ h3 {
 }
 
 /** Input Fields */
+form {
+    display: flex;
+    flex-direction: column;
+}
 
-.input-field {
+.field-set {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+}
+
+#input-field {
     display: flex;
     margin: 15px;
     text-align: left;
