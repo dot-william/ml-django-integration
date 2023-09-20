@@ -38,10 +38,16 @@ def predict(request):
             avg_glucose_level = float(form.cleaned_data.get('avg_glucose_level'))
             bmi = float(form.cleaned_data.get('bmi'))
             smoking_status = form.cleaned_data.get('smoking_status')
-            dict_features = {'gender':[gender], 'age': [age], 'hypertension': [hypertension],
-                                    'heart_disease': [heart_disease], 'ever_married' : [ever_married],
-                                    'work_type' : [work_type], 'Residence_type': [residence_type],
-                                    'avg_glucose_level': [avg_glucose_level], 'bmi': [bmi], 'smoking_status': [smoking_status]}
+            dict_features = {'gender':[gender], 
+                             'age': [age], 
+                             'hypertension': [hypertension],
+                             'heart_disease': [heart_disease], 
+                             'ever_married' : [ever_married],
+                             'work_type' : [work_type], 
+                             'Residence_type': [residence_type],
+                             'avg_glucose_level': [avg_glucose_level], 
+                             'bmi': [bmi], 
+                             'smoking_status': [smoking_status]}
             features = pd.DataFrame.from_dict(dict_features)
             print(features)
             # One hot encode
@@ -53,32 +59,25 @@ def predict(request):
 
             scaled_features= ClassifierConfig.scaler.transform(encoded_features_df)
             print(scaled_features)
-            # pd.DataFrame(scaled_values, columns=stroke_df_copy.columns, index=stroke_df_copy.index)
-            # # numerical_data = np.array(avg_glucose_level, bmi)
-            # # categorical = np.array(gender, ever_married, work_type, residence_type, smoking_status)
-            #  # encoded = ClassifierConfig.encoder.transform(categorical)
-            # # scale_vals = ClassifierConfig.scaler.transform(numerical_data)
-            # # encoded = ClassifierConfig.encoder.transform(categorical)
+    
 
             
             # # [[1, 2, 3, 4]]
-            # prediction = ClassifierConfig.model.predict(features.reshape(1, -1))[0]
-            # prediction = targets[prediction]
+            prediction = ClassifierConfig.model.predict(scaled_features.reshape(1, -1))[0]
+            prediction = targets[prediction]
             
-            # prediction_probas = ClassifierConfig.calibrated_clf.predict_proba(features.reshape([1, -1]))[0]
-            # prediction_probas = [f"{prob*100:.2f}%" for prob in prediction_probas]
+            prediction_probas = ClassifierConfig.calibrated_clf.predict_proba(scaled_features.reshape([1, -1]))[0]
+            prediction_probas = [f"{prob*100:.2f}%" for prob in prediction_probas]
             
           
-            # prediction_proba_classes = zip(targets, prediction_probas)
-            # prediction_proba_classes = sorted(prediction_proba_classes, key = lambda x: x[1], reverse=True)
+            prediction_proba_classes = zip(targets, prediction_probas)
+            prediction_proba_classes = sorted(prediction_proba_classes, key = lambda x: x[1], reverse=True)
 
     template = loader.get_template('classifier/home.html')
+    
     context = {
-        'form': form
+        'form': form,
+        'predictions': prediction_proba_classes
     }
-    # context = {
-    #     'form': form,
-    #     'predictions': prediction_proba_classes
-    # }
 
     return HttpResponse(template.render(context, request))
